@@ -1,0 +1,14 @@
+{
+  "name": "cab-dent-sofia-gkrizioti",
+  "version": "1.0.0",
+  "description": "Landing page — Cabinet Dentaire Dr. Gkrizioti Sofia, Lausanne",
+  "scripts": {
+    "start": "live-server"
+  },
+  "dependencies": {
+    "@sentry/browser": "^8.0.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
