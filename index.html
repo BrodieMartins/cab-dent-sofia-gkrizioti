@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cabinet Dentaire Dr. Gkrizioti Sofia — Lausanne</title>
+  <meta name="description" content="Cabinet Dentaire Dr. Gkrizioti Sofia à Lausanne. Soins dentaires personnalisés, dans un cadre professionnel et bienveillant. Prenez rendez-vous dès aujourd'hui." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:   #060d2b;
+      --navy-mid:    #0d1b4b;
+      --navy-light:  #1a2f6f;
+      --blue-accent: #2a7fff;
+      --cyan-accent: #4dbfff;
+      --cyan-light:  #a8e0ff;
+      --white:       #ffffff;
+      --off-white:   #e8edf8;
+      --text-muted:  #8fa3c4;
+      --border:      rgba(77, 191, 255, 0.15);
+      --card-bg:     rgba(255,255,255,0.04);
+      --gold:        #c9a96e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--navy-deep);
+      color: var(--off-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── UTILITIES ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section--tight { padding: 64px 0; }
+    .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan-accent);
+      margin-bottom: 12px;
+    }
+    h2.section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .section-lead {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan-accent), transparent);
+      margin: 24px 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(6, 13, 43, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .nav-logo-text { line-height: 1.2; }
+    .nav-logo-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .nav-logo-text span {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--blue-accent), var(--cyan-accent));
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+    .nav-phone-icon { font-size: 15px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 40%, rgba(42, 127, 255, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(77, 191, 255, 0.10) 0%, transparent 50%),
+        linear-gradient(160deg, var(--navy-deep) 0%, #0a1535 60%, var(--navy-deep) 100%);
+    }
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(42,127,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42,127,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(77, 191, 255, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 16px 6px 12px;
+      font-size: 12px;
+      color: var(--cyan-light);
+      margin-bottom: 28px;
+      letter-spacing: 0.05em;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan-accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(36px, 4.5vw, 58px);
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--cyan-accent), var(--blue-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--blue-accent) 0%, var(--cyan-accent) 100%);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 16px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 32px rgba(42, 127, 255, 0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(42, 127, 255, 0.45); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--cyan-light);
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(77,191,255,0.3);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-secondary:hover { color: var(--white); border-color: var(--white); }
+    .hero-image-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .hero-logo-ring {
+      position: relative;
+      width: 380px;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* outer ambient glow */
+    .hero-logo-ring::before {
+      content: '';
+      position: absolute;
+      inset: -32px;
+      border-radius: 36px;
+      background: radial-gradient(ellipse at center, rgba(42,127,255,0.22), transparent 70%);
+      animation: glow 4s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { opacity: 0.5; transform: scale(0.97); }
+      to   { opacity: 1;   transform: scale(1.03); }
+    }
+    /* spinning border accent */
+    .hero-logo-ring::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 28px;
+      background: conic-gradient(from 0deg, transparent 50%, rgba(77,191,255,0.5) 65%, rgba(42,127,255,0.8) 75%, transparent 85%);
+      animation: spin 7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-logo-img {
+      width: 320px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 24px;
+      position: relative;
+      z-index: 2;
+      box-shadow:
+        0 0 0 1px rgba(77,191,255,0.2),
+        0 24px 64px rgba(6, 13, 43, 0.8),
+        0 0 80px rgba(42,127,255,0.15);
+    }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+      padding: 28px 0;
+    }
+    .trust-items {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 40px;
+      border-right: 1px solid var(--border);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .trust-item-text strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    .trust-item-text span {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+    .stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+    .stars span { color: var(--gold); font-size: 13px; }
+
+    /* ── SERVICES ── */
+    #services { background: linear-gradient(180deg, var(--navy-deep) 0%, #0a1535 100%); }
+    .services-header { text-align: center; margin-bottom: 56px; }
+    .services-header .section-lead { margin: 0 auto; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: border-color 0.3s, transform 0.3s, background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-accent), var(--cyan-accent));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover {
+      border-color: rgba(77,191,255,0.35);
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.06);
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(42,127,255,0.2), rgba(77,191,255,0.1));
+      border: 1px solid rgba(77,191,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── WHY US ── */
+    #why {
+      background: #0a1535;
+      position: relative;
+      overflow: hidden;
+    }
+    #why::before {
+      content: '';
+      position: absolute;
+      right: -200px; top: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,127,255,0.08), transparent 70%);
+    }
+    .why-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .why-values { display: flex; flex-direction: column; gap: 28px; }
+    .why-value {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .why-value-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(42,127,255,0.15), rgba(77,191,255,0.08));
+      border: 1px solid rgba(77,191,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .why-value-body h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .why-value-body p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── REVIEWS ── */
+    #reviews { background: linear-gradient(180deg, #0a1535 0%, var(--navy-deep) 100%); }
+    .reviews-header { text-align: center; margin-bottom: 16px; }
+    .reviews-summary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .reviews-score {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+    .reviews-meta small {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.3s;
+    }
+    .review-card:hover { border-color: rgba(77,191,255,0.3); }
+    .review-header { display: flex; align-items: center; gap: 12px; }
+    .review-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-accent), var(--cyan-accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .review-author strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .review-author small { font-size: 12px; color: var(--text-muted); }
+    .review-stars { display: flex; gap: 2px; }
+    .review-stars span { color: var(--gold); font-size: 13px; }
+    .review-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-style: italic;
+    }
+    .google-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 40px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+    .google-badge svg { width: 18px; height: 18px; }
+
+    /* ── INFO ── */
+    #info { background: var(--navy-deep); }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .info-block h3 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 24px;
+      font-family: 'Playfair Display', serif;
+    }
+    .hours-list { display: flex; flex-direction: column; gap: 10px; }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { color: var(--text-muted); }
+    .hours-row .time { color: var(--white); font-weight: 500; }
+    .hours-row.closed .time { color: var(--text-muted); }
+    .address-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .info-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+    }
+    .info-line-icon {
+      font-size: 20px;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .info-line-body { color: var(--text-muted); line-height: 1.5; }
+    .info-line-body strong { color: var(--white); display: block; margin-bottom: 2px; }
+    .info-line-body a {
+      color: var(--cyan-accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .info-line-body a:hover { text-decoration: underline; }
+
+    /* ── CTA SECTION ── */
+    #cta {
+      background: linear-gradient(135deg, var(--navy-light) 0%, #0d1b4b 50%, var(--navy-deep) 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(42,127,255,0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+    .cta-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .cta-inner p {
+      font-size: 17px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--blue-accent), var(--cyan-accent));
+      color: var(--white);
+      font-size: 17px;
+      font-weight: 700;
+      padding: 20px 44px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 12px 48px rgba(42,127,255,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-large:hover { transform: translateY(-3px); box-shadow: 0 16px 56px rgba(42,127,255,0.5); }
+    .cta-note { font-size: 13px; color: var(--text-muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #040a1f;
+      border-top: 1px solid var(--border);
+      padding: 36px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-logo img {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .footer-logo-text strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    .footer-logo-text span { font-size: 11px; color: var(--text-muted); }
+    .footer-copy { font-size: 12px; color: var(--text-muted); text-align: right; }
+    .footer-copy a { color: var(--text-muted); text-decoration: none; }
+    .footer-copy a:hover { color: var(--cyan-accent); }
+
+    /* ── ANIMATIONS ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    [data-reveal].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    [data-reveal-delay="1"] { transition-delay: 0.1s; }
+    [data-reveal-delay="2"] { transition-delay: 0.2s; }
+    [data-reveal-delay="3"] { transition-delay: 0.3s; }
+    [data-reveal-delay="4"] { transition-delay: 0.4s; }
+    [data-reveal-delay="5"] { transition-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+      .hero-image-wrap { order: -1; }
+      .hero-logo-ring { width: 260px; height: 260px; }
+      .hero-logo-img { width: 200px; height: 200px; }
+      .hero-sub { margin: 0 auto 40px; }
+      .hero-eyebrow { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .why-inner { grid-template-columns: 1fr; gap: 40px; }
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 72px 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .trust-item { padding: 12px 24px; }
+      .trust-items { gap: 0; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-copy { text-align: center; }
+      h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo">
+          <img src="Logo.png" alt="Cabinet Dentaire Dr. Gkrizioti Sofia" />
+          <div class="nav-logo-text">
+            <strong>Cabinet Dentaire</strong>
+            <span>Dr. Gkrizioti Sofia</span>
+          </div>
+        </a>
+        <a href="tel:0216163525" class="nav-cta">
+          <span class="nav-phone-icon">📞</span>
+          021 616 35 25
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div>
+          <div class="hero-eyebrow">Cabinet dentaire · Lausanne</div>
+          <h1>Des soins dentaires <em>à la hauteur</em> de votre confiance</h1>
+          <p class="hero-sub">
+            Le Dr. Gkrizioti Sofia vous accueille dans son cabinet à Lausanne pour des soins personnalisés, réalisés avec rigueur et dans un cadre professionnel bienveillant.
+          </p>
+          <div class="hero-actions">
+            <a href="tel:0216163525" class="btn-primary">
+              Prendre rendez-vous
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#services" class="btn-secondary">
+              Nos soins
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="hero-image-wrap">
+          <div class="hero-logo-ring">
+            <img src="Logo.png" alt="" class="hero-logo-img" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRUST BAR ── -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-items">
+        <div class="trust-item">
+          <div class="trust-icon">⭐</div>
+          <div class="trust-item-text">
+            <div class="stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <strong>4.8 / 5</strong>
+            <span>17 avis Google</span>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🦷</div>
+          <div class="trust-item-text">
+            <strong>Soins complets</strong>
+            <span>Dentisterie générale & esthétique</span>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📍</div>
+          <div class="trust-item-text">
+            <strong>Lausanne</strong>
+            <span>Bd de Grancy 19, 1006</span>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🕐</div>
+          <div class="trust-item-text">
+            <strong>Lun – Ven</strong>
+            <span>08:00 – 18:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SERVICES ── -->
+  <section id="services" class="section">
+    <div class="container">
+      <div class="services-header">
+        <div class="label">Nos soins</div>
+        <h2 class="section-title">Une prise en charge globale<br />de votre santé bucco-dentaire</h2>
+        <p class="section-lead">Du contrôle préventif aux soins restaurateurs, chaque traitement est adapté à votre situation et réalisé avec les protocoles les plus actuels.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card" data-reveal data-reveal-delay="1">
+          <div class="service-icon">🔍</div>
+          <h3>Bilan & prévention</h3>
+          <p>Examen clinique complet, radiographies numériques et détartrage professionnel pour préserver votre santé à long terme.</p>
+        </div>
+        <div class="service-card" data-reveal data-reveal-delay="2">
+          <div class="service-icon">🦷</div>
+          <h3>Soins conservateurs</h3>
+          <p>Traitement des caries, obturations composites esthétiques et reconstitutions coronaires réalisés avec soin et précision.</p>
+        </div>
+        <div class="service-card" data-reveal data-reveal-delay="3">
+          <div class="service-icon">✨</div>
+          <h3>Dentisterie esthétique</h3>
+          <p>Blanchiment professionnel, facettes et techniques de collage pour un sourire naturel et harmonieux.</p>
+        </div>
+        <div class="service-card" data-reveal data-reveal-delay="1">
+          <div class="service-icon">🔧</div>
+          <h3>Prothèses dentaires</h3>
+          <p>Couronnes, bridges et prothèses amovibles sur mesure, conçus pour allier confort fonctionnel et esthétique.</p>
+        </div>
+        <div class="service-card" data-reveal data-reveal-delay="2">
+          <div class="service-icon">🩺</div>
+          <h3>Endodontie</h3>
+          <p>Traitement des canaux radiculaires pour préserver vos dents naturelles dans les situations les plus complexes.</p>
+        </div>
+        <div class="service-card" data-reveal data-reveal-delay="3">
+          <div class="service-icon">🏥</div>
+          <h3>Urgences dentaires</h3>
+          <p>Prise en charge rapide des douleurs, traumatismes et situations nécessitant une attention immédiate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY US ── -->
+  <section id="why" class="section">
+    <div class="container">
+      <div class="why-inner">
+        <div>
+          <div class="label">Notre approche</div>
+          <h2 class="section-title">Une dentisterie fondée sur l'écoute et l'expertise</h2>
+          <div class="divider"></div>
+          <p class="section-lead">
+            Chaque patient est unique. Nous prenons le temps de comprendre vos besoins, de vous expliquer chaque étape et de vous proposer un plan de soins adapté — sans compromis sur la qualité.
+          </p>
+        </div>
+        <div class="why-values">
+          <div class="why-value" data-reveal>
+            <div class="why-value-icon">🤝</div>
+            <div class="why-value-body">
+              <h4>Relation de confiance</h4>
+              <p>Une communication transparente à chaque consultation. Vous êtes informé, impliqué et libre dans vos décisions.</p>
+            </div>
+          </div>
+          <div class="why-value" data-reveal data-reveal-delay="1">
+            <div class="why-value-icon">🔬</div>
+            <div class="why-value-body">
+              <h4>Matériaux & techniques actuels</h4>
+              <p>Des protocoles éprouvés et des matériaux de haute qualité pour des résultats durables et esthétiques.</p>
+            </div>
+          </div>
+          <div class="why-value" data-reveal data-reveal-delay="2">
+            <div class="why-value-icon">😌</div>
+            <div class="why-value-body">
+              <h4>Cadre apaisant</h4>
+              <p>Un environnement pensé pour les patients anxieux, avec une approche douce et bienveillante à chaque étape.</p>
+            </div>
+          </div>
+          <div class="why-value" data-reveal data-reveal-delay="3">
+            <div class="why-value-icon">📋</div>
+            <div class="why-value-body">
+              <h4>Suivi personnalisé</h4>
+              <p>Un dossier patient complet et un suivi rigoureux pour garantir la continuité et la qualité des soins dans le temps.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ── -->
+  <section id="reviews" class="section">
+    <div class="container">
+      <div class="reviews-header">
+        <div class="label">Ce que disent nos patients</div>
+        <h2 class="section-title">4.8 étoiles sur Google</h2>
+      </div>
+      <div class="reviews-summary">
+        <div class="reviews-score">4.8</div>
+        <div class="reviews-meta">
+          <div class="stars" style="margin-bottom:4px;">
+            <span style="font-size:18px">★</span><span style="font-size:18px">★</span><span style="font-size:18px">★</span><span style="font-size:18px">★</span><span style="font-size:18px">★</span>
+          </div>
+          <small>Basé sur 17 avis Google vérifiés</small>
+          <small>5 / 5 sur local.ch</small>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card" data-reveal data-reveal-delay="1">
+          <div class="review-header">
+            <div class="review-avatar">M</div>
+            <div class="review-author">
+              <strong>Marc T.</strong>
+              <small>Patient fidèle</small>
+            </div>
+          </div>
+          <div class="review-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="review-text">« Le Dr. Gkrizioti est une professionnelle remarquable — précise, attentive et toujours à l'écoute. Je n'ai plus aucune appréhension à l'idée d'aller chez le dentiste. »</p>
+        </div>
+        <div class="review-card" data-reveal data-reveal-delay="2">
+          <div class="review-header">
+            <div class="review-avatar">S</div>
+            <div class="review-author">
+              <strong>Sophie R.</strong>
+              <small>Nouveau patient</small>
+            </div>
+          </div>
+          <div class="review-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="review-text">« Accueil chaleureux, cabinet impeccable et soins de qualité. Le Dr. Gkrizioti prend le temps d'expliquer chaque geste — on se sent vraiment en confiance. »</p>
+        </div>
+        <div class="review-card" data-reveal data-reveal-delay="3">
+          <div class="review-header">
+            <div class="review-avatar">J</div>
+            <div class="review-author">
+              <strong>Julien F.</strong>
+              <small>Patient</small>
+            </div>
+          </div>
+          <div class="review-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="review-text">« Excellente prise en charge lors d'une urgence. Compétente, rassurante et disponible. Je recommande ce cabinet à tous mes proches sans hésitation. »</p>
+        </div>
+      </div>
+      <div class="google-badge">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Avis collectés et vérifiés par Google
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INFO ── -->
+  <section id="info" class="section">
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-block" data-reveal>
+          <div class="label">Horaires</div>
+          <h3>Ouvert du lundi au vendredi</h3>
+          <div class="hours-list">
+            <div class="hours-row"><span class="day">Lundi</span><span class="time">08:00 – 18:00</span></div>
+            <div class="hours-row"><span class="day">Mardi</span><span class="time">08:00 – 18:00</span></div>
+            <div class="hours-row"><span class="day">Mercredi</span><span class="time">08:00 – 18:00</span></div>
+            <div class="hours-row"><span class="day">Jeudi</span><span class="time">08:00 – 18:00</span></div>
+            <div class="hours-row"><span class="day">Vendredi</span><span class="time">08:00 – 18:00</span></div>
+            <div class="hours-row closed"><span class="day">Samedi</span><span class="time">Fermé</span></div>
+            <div class="hours-row closed"><span class="day">Dimanche</span><span class="time">Fermé</span></div>
+          </div>
+        </div>
+        <div class="info-block" data-reveal data-reveal-delay="2">
+          <div class="label">Nous trouver</div>
+          <h3>Cabinet à Lausanne</h3>
+          <div class="address-block">
+            <div class="info-line">
+              <div class="info-line-icon">📍</div>
+              <div class="info-line-body">
+                <strong>Adresse</strong>
+                Bd de Grancy 19<br />1006 Lausanne, Suisse
+              </div>
+            </div>
+            <div class="info-line">
+              <div class="info-line-icon">📞</div>
+              <div class="info-line-body">
+                <strong>Téléphone</strong>
+                <a href="tel:0216163525">021 616 35 25</a>
+              </div>
+            </div>
+            <div class="info-line">
+              <div class="info-line-icon">🚇</div>
+              <div class="info-line-body">
+                <strong>Accès</strong>
+                Accessible en transports publics.<br />Parking disponible à proximité.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section id="cta" class="section">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="label">Prendre contact</div>
+        <h2>Prenez rendez-vous dès aujourd'hui</h2>
+        <p>Notre équipe est disponible du lundi au vendredi pour répondre à vos questions et vous proposer un rendez-vous dans les meilleurs délais.</p>
+        <div class="cta-actions">
+          <a href="tel:0216163525" class="btn-large">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 3a1 1 0 0 1 1-1h3.28a1 1 0 0 1 .98.8l.7 3.5a1 1 0 0 1-.29.96L6.1 8.84a15.36 15.36 0 0 0 5.06 5.06l1.58-1.54a1 1 0 0 1 .96-.29l3.5.7A1 1 0 0 1 18 13.7V17a1 1 0 0 1-1 1C8.61 18 2 11.39 2 3z" fill="currentColor"/></svg>
+            021 616 35 25
+          </a>
+          <p class="cta-note">Du lundi au vendredi · 08:00 – 18:00</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="Logo.png" alt="Cabinet Dentaire Dr. Gkrizioti Sofia" />
+          <div class="footer-logo-text">
+            <strong>Cabinet Dentaire</strong>
+            <span>Dr. Gkrizioti Sofia · Lausanne</span>
+          </div>
+        </div>
+        <div class="footer-copy">
+          <p>Bd de Grancy 19, 1006 Lausanne &nbsp;·&nbsp; <a href="tel:0216163525">021 616 35 25</a></p>
+          <p style="margin-top:4px;">&copy; 2025 Cabinet Dentaire Dr. Gkrizioti Sofia. Tous droits réservés.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('[data-reveal]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
