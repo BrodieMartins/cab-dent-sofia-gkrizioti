@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Landing page — Cabinet Dentaire Dr. Gkrizioti Sofia, Lausanne",
   "scripts": {
+<<<<<<< HEAD
     "start": "web-dev-server --open --watch",
     "dev": "web-dev-server --open --watch"
+=======
+    "start": "web-dev-server --open"
+>>>>>>> 88b27c04ed21bdc935506307e2d0724b5e10f8cb
   },
   "dependencies": {
     "@sentry/browser": "^8.0.0"
