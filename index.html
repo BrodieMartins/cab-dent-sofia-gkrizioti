@@ -217,7 +217,7 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 1000;
+      z-index: 3000;
       transition: all 0.4s ease;
       padding: 15px 0;
     }
@@ -342,63 +342,6 @@
     .reveal-delay-3 { animation-delay: 0.3s; }
     .reveal-delay-4 { animation-delay: 0.4s; }
     .reveal-delay-5 { animation-delay: 0.5s; }
-
-    /* ── HERO MOBILE OVERRIDES ── */
-    @media (max-width: 899px) {
-      /* Hero layout */
-      #hero { padding-top: 120px; padding-bottom: 60px; text-align: center; }
-      .hero-main { display: flex; flex-direction: column; align-items: center; }
-      .hero-badge { align-self: center; }
-
-      /* Typography — constrained to 70% width */
-      .hero-title { font-size: 32px; line-height: 1.1; margin-bottom: 16px; text-align: center; max-width: 70%; margin-left: auto; margin-right: auto; }
-      .hero-desc { font-size: 14px; line-height: 1.7; margin-bottom: 28px; max-width: 70%; margin-left: auto; margin-right: auto; }
-
-      /* CTAs — stacked vertically, centered */
-      .hero-actions { flex-direction: column; align-items: center; gap: 12px; width: 100%; }
-      .btn-primary, .btn-glass { width: 100%; max-width: 260px; padding: 13px 20px; font-size: 13px; justify-content: center; flex: unset; min-width: unset; }
-
-      /* Two boxes — side-by-side compact grid */
-      .hero-grid { gap: 24px; }
-      .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-      .glass-card, .marquee-card {
-        padding: 14px 12px;
-        max-width: 100%;
-        border-radius: 14px;
-        margin-left: 0;
-      }
-      .card-stat-header { margin-bottom: 10px; gap: 8px; flex-direction: column; align-items: flex-start; }
-      .card-icon { width: 30px; height: 30px; border-radius: 8px; font-size: 14px; }
-      .card-stat-val { font-size: 18px; }
-      .card-stat-label { font-size: 9px; }
-      .progress-section { margin-bottom: 10px; }
-      .progress-info { font-size: 9px; margin-bottom: 6px; }
-      .progress-bar-bg { height: 4px; }
-      .stats-mini-grid { display: none; }
-      .card-pills { margin-top: 10px; gap: 4px; flex-direction: column; }
-      .pill { font-size: 8px; padding: 3px 8px; }
-
-      .marquee-card { padding: 12px 0; margin-top: 0; }
-      .marquee-title { font-size: 9px; margin-bottom: 10px; padding: 0 12px; }
-      .marquee-item { gap: 6px; }
-      .marquee-item span { font-size: 12px; }
-
-      /* Stepper — teal phone button */
-      .aside-tel-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 7px 16px;
-        border-radius: 100px;
-        background: var(--teal);
-        color: #FFF;
-        font-size: 13px;
-        font-weight: 700;
-        text-decoration: none;
-        margin-top: 6px;
-        white-space: nowrap;
-      }
-    }
 
     #hero {
       min-height: 100svh;
@@ -1029,6 +972,25 @@
     .aside-val { font-size: 15px; color: var(--cream); font-weight: 600; line-height: 1.5; }
     .aside-val small { display: block; font-size: 13px; font-weight: 400; color: var(--seafoam); opacity: 0.6; margin-top: 4px; }
 
+    .aside-action-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .aside-tel-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 7px 16px; border-radius: 100px;
+      background: var(--teal); color: #FFF;
+      font-size: 13px; font-weight: 700; text-decoration: none;
+      white-space: nowrap; transition: background 0.3s;
+    }
+    .aside-tel-btn:hover { background: #236e6e; }
+    .aside-contact-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 7px 16px; border-radius: 100px;
+      background: transparent; color: var(--seafoam);
+      font-size: 13px; font-weight: 700; text-decoration: none;
+      border: 1px solid rgba(45,139,139,0.5);
+      white-space: nowrap; transition: all 0.3s;
+    }
+    .aside-contact-btn:hover { background: rgba(45,139,139,0.15); color: var(--cream); border-color: var(--teal); }
+
     /* Nav arrows */
     .stepper-nav {
       display: flex;
@@ -1375,73 +1337,103 @@
       color: var(--teal);
     }
     @media (max-width: 899px) {
-      .hero-badge-slot { margin-left: 0; display: block; text-align: center; }
+      .hero-badge-slot { margin-left: 0; display: inline-flex; }
     }
 
-
-  /* ── MOBILE FIXES: must live after desktop styles to win the cascade ── */
+  /* ── HERO MOBILE — must be last to win the cascade ── */
   @media (max-width: 899px) {
 
-    /* Hero — centre everything, kill the desktop font-size clamp */
-    #hero { text-align: center; }
-    .hero-main { align-items: center; }
+    /* ── Root fix: stop marquee from blowing up the flex container ── */
+    #hero .container { width: 100%; min-width: 0; box-sizing: border-box; }
+    .hero-stats, .glass-card, .marquee-card { min-width: 0; }
+    .marquee-card { overflow: hidden; }
 
+    /* Section */
+    #hero { padding-top: 100px; padding-bottom: 52px; min-height: auto; }
+
+    /* Grid: single column, stacked */
+    .hero-grid { display: flex; flex-direction: column; gap: 28px; width: 100%; }
+
+    /* Left column: left-aligned like desktop */
+    .hero-main { display: flex; flex-direction: column; align-items: flex-start; text-align: left; width: 100%; min-width: 0; }
+
+    /* Badges: stack vertically so second doesn't overflow */
+    .hero-main > .animate-fade-in:first-child { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .hero-badge { align-self: flex-start; margin-bottom: 0; }
+
+    /* Title: viewport-scaled, left-aligned, no fade mask */
     .hero-title {
-      font-size: 32px;
-      line-height: 1.1;
-      text-align: center;
-      max-width: 90%;
-      margin-left: auto;
-      margin-right: auto;
-      /* Desktop fade-out mask looks odd at small size — remove it */
+      font-size: clamp(22px, 7.8vw, 36px);
+      line-height: 1.05;
+      text-align: left;
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 14px;
+      overflow-wrap: break-word;
       mask-image: none;
       -webkit-mask-image: none;
     }
 
+    /* Description: left-aligned, full width */
     .hero-desc {
       font-size: 14px;
-      line-height: 1.7;
-      text-align: center;
-      max-width: 90%;
-      margin-left: auto;
-      margin-right: auto;
+      line-height: 1.75;
+      text-align: left;
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 24px;
     }
 
-    .hero-badge { align-self: center; }
-
-    .hero-actions {
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      gap: 12px;
-    }
-    .btn-primary,
-    .btn-glass {
-      width: 100%;
-      max-width: 280px;
-      padding: 14px 20px;
-      font-size: 14px;
-      justify-content: center;
+    /* CTAs: side-by-side like desktop */
+    .hero-actions { flex-direction: row; flex-wrap: nowrap; gap: 10px; width: 100%; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-glass {
+      width: calc(50% - 5px); flex: none;
+      padding: 13px 12px; font-size: 13px;
+      justify-content: center; text-align: center;
     }
 
-    /* Cards — stack vertically, full width, no auto-margin drift */
-    .hero-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      width: 100%;
-    }
+    /* Right column: full-width stacked cards */
+    .hero-stats { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+
+    /* Glass card: desktop-style sizing */
     .glass-card {
-      width: 100%;
-      max-width: 100%;
+      width: 100%; max-width: 100%;
       margin-left: 0;
+      padding: 22px 20px;
+      border-radius: 20px;
     }
+
+    /* Card header: horizontal icon + stat side-by-side (mirrors desktop) */
+    .card-stat-header { flex-direction: row; align-items: center; gap: 16px; margin-bottom: 18px; }
+    .card-icon { width: 46px; height: 46px; border-radius: 14px; font-size: 22px; flex-shrink: 0; }
+    .card-stat-val { font-size: 28px; }
+    .card-stat-label { font-size: 12px; }
+
+    /* Progress bar */
+    .progress-section { margin-bottom: 18px; }
+    .progress-info { font-size: 12px; margin-bottom: 10px; }
+    .progress-bar-bg { height: 6px; }
+
+    /* Mini stats grid: visible on mobile (mirrors desktop) */
+    .stats-mini-grid { display: grid; padding-top: 14px; }
+    .mini-stat-val { font-size: 20px; }
+    .mini-stat-label { font-size: 8px; }
+    .stat-divider { height: 28px; }
+
+    /* Pills: horizontal row */
+    .card-pills { margin-top: 16px; gap: 6px; flex-direction: row; flex-wrap: wrap; }
+    .pill { font-size: 9px; padding: 5px 10px; }
+
+    /* Marquee card */
     .marquee-card {
-      width: 100%;
-      max-width: 100%;
-      margin-left: 0;
-      margin-top: 0;
+      width: 100%; max-width: 100%;
+      margin-left: 0; margin-top: 0;
+      padding: 14px 0; border-radius: 20px;
     }
+    .marquee-title { font-size: 10px; margin-bottom: 10px; padding: 0 16px; }
+    .marquee-item span { font-size: 13px; }
+
   }
   </style>
 </head>
@@ -1846,9 +1838,10 @@
           <div class="stepper-aside">
             <div class="stepper-aside-card">
               <div class="aside-label">Canal préféré</div>
-              <div class="aside-val">Téléphone ou formulaire
-                <br />
-                <a href="tel:0216163525" class="aside-tel-btn">021 616 35 25</a>
+              <div class="aside-val">Téléphone ou formulaire</div>
+              <div class="aside-action-row">
+                <a href="tel:0216163525" class="aside-tel-btn">📞 021 616 35 25</a>
+                <a href="#contact" class="aside-contact-btn">Formulaire →</a>
               </div>
             </div>
             <div class="stepper-aside-card">
