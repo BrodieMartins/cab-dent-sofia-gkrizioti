@@ -657,70 +657,213 @@
     }
     @media (min-width: 768px) { .services-header { margin-bottom: 72px; } }
 
-    .services-grid {
+    /* ── SERVICES SHOWCASE ── */
+    .svc-showcase {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    @media (min-width: 600px) { .services-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-    @media (min-width: 1024px) { .services-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
-
-    .service-card {
-      background: var(--navy);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 0;
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    @media (min-width: 960px) {
+      .svc-showcase { grid-template-columns: 340px 1fr; }
+    }
+
+    /* List column */
+    .svc-list { display: flex; flex-direction: column; }
+    @media (min-width: 960px) { .svc-list { border-right: 1px solid var(--glass-border); } }
+
+    .svc-row-wrap { border-bottom: 1px solid var(--glass-border); }
+    .svc-row-wrap:last-child { border-bottom: none; }
+
+    .svc-row {
       display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .service-card:hover {
-      border-color: var(--teal);
-      transform: translateY(-8px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    }
-    .service-card-img {
+      align-items: center;
+      gap: 14px;
+      padding: 20px 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
       width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .service-card:hover .service-card-img { transform: scale(1.06); }
-    .service-card-img-wrap {
-      overflow: hidden;
+      text-align: left;
       position: relative;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background 0.25s;
     }
-    .service-card-img-wrap::after {
+    .svc-row::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 40%, var(--navy) 100%);
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--teal);
+      transform: scaleY(0);
+      transform-origin: center;
+      transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 0 2px 2px 0;
     }
-    .service-card-body {
-      padding: 28px 32px 32px;
+    .svc-row.active { background: rgba(45, 139, 139, 0.07); }
+    .svc-row.active::before { transform: scaleY(1); }
+    .svc-row:hover:not(.active) { background: rgba(255, 255, 255, 0.025); }
+
+    .svc-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--seafoam);
+      opacity: 0.28;
+      flex-shrink: 0;
+      width: 22px;
+      transition: color 0.25s, opacity 0.25s;
+    }
+    .svc-row.active .svc-num { color: var(--teal); opacity: 1; }
+
+    .svc-row-label { flex-grow: 1; min-width: 0; }
+    .svc-name {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cream);
+      opacity: 0.55;
+      transition: opacity 0.25s;
+      line-height: 1.3;
+    }
+    .svc-row.active .svc-name,
+    .svc-row:hover .svc-name { opacity: 1; }
+
+    .svc-tag {
+      display: block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      opacity: 0;
+      margin-top: 3px;
+      transition: opacity 0.25s;
+    }
+    .svc-row.active .svc-tag { opacity: 0.65; }
+
+    .svc-row-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      opacity: 0.25;
+      transition: opacity 0.25s, transform 0.3s;
+    }
+    .svc-row.active .svc-row-icon { opacity: 1; }
+    .svc-row:hover .svc-row-icon { opacity: 0.6; transform: scale(1.1); }
+
+    .svc-arrow {
+      font-size: 13px;
+      color: var(--teal);
+      flex-shrink: 0;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .svc-row.active .svc-arrow,
+    .svc-row:hover .svc-arrow { opacity: 1; transform: translateX(0); }
+
+    /* Desktop: side panel */
+    .svc-panel-wrap {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      display: none;
+    }
+    @media (min-width: 960px) { .svc-panel-wrap { display: block; } }
+
+    .svc-panel {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
+    .svc-panel.active { opacity: 1; pointer-events: auto; }
+
+    .svc-panel-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.04);
+      transition: transform 7s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .svc-panel.active .svc-panel-img { transform: scale(1); }
+
+    .svc-panel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 20%, rgba(26,35,50,0.65) 55%, rgba(26,35,50,0.97) 100%);
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
+      justify-content: flex-end;
+      padding: 44px 40px;
     }
-    .service-icon-wrap {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: rgba(45, 139, 139, 0.1);
-      color: var(--teal);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      margin-bottom: 16px;
-      transition: all 0.4s;
-    }
-    .service-card:hover .service-icon-wrap {
+    .svc-panel-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+    .svc-panel-title { font-size: 26px; font-weight: 700; color: var(--cream); margin-bottom: 10px; line-height: 1.2; }
+    .svc-panel-desc { font-size: 14px; color: var(--seafoam); opacity: 0.75; line-height: 1.75; max-width: 340px; margin-bottom: 28px; }
+    .svc-panel-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       background: var(--teal);
       color: #FFF;
+      padding: 11px 26px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+      width: fit-content;
     }
-    .service-card h3 { font-size: 20px; margin-bottom: 10px; color: var(--cream); }
-    .service-card p { font-size: 14px; color: var(--seafoam); opacity: 0.7; line-height: 1.7; margin-bottom: 24px; flex-grow: 1; }
+    .svc-panel-cta:hover { background: #339999; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,139,139,0.4); }
+
+    /* Mobile: inline accordion */
+    .svc-inline-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .svc-row-wrap.open .svc-inline-panel { max-height: 300px; }
+    @media (min-width: 960px) { .svc-inline-panel { display: none; } }
+
+    .svc-inline-content {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 4px 24px 24px;
+    }
+    .svc-inline-img-wrap {
+      width: 88px; height: 88px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .svc-inline-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .svc-inline-text p {
+      font-size: 13px;
+      color: var(--seafoam);
+      opacity: 0.75;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .svc-inline-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(45,139,139,0.1);
+      border: 1px solid rgba(45,139,139,0.3);
+      color: var(--teal);
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.25s;
+      letter-spacing: 0.05em;
+    }
+    .svc-inline-cta:hover { background: rgba(45,139,139,0.2); }
 
     .btn-text {
       font-size: 12px;
@@ -1141,6 +1284,101 @@
     [data-reveal-delay="1"] { transition-delay: 0.12s; }
     [data-reveal-delay="2"] { transition-delay: 0.24s; }
     [data-reveal-delay="3"] { transition-delay: 0.36s; }
+
+    /* ── FEATURE 1: Progress bar animated via JS ── */
+    .progress-bar-fill { transition: width 1.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+
+    /* ── FEATURE 6: Reviews auto-carousel ── */
+    .reviews-carousel-outer {
+      width: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+    }
+    .reviews-carousel-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: reviewsMarquee 44s linear infinite;
+    }
+    .reviews-carousel-outer:hover .reviews-carousel-track { animation-play-state: paused; }
+    .reviews-carousel-track .review-card {
+      width: 360px;
+      flex-shrink: 0;
+      transform: none;
+    }
+    .reviews-carousel-track .review-card:hover { transform: translateY(-6px); }
+    @keyframes reviewsMarquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── FEATURE 8: FAQ search ── */
+    .faq-search-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .faq-search {
+      width: 100%;
+      padding: 13px 20px 13px 44px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: rgba(26, 35, 50, 0.45);
+      font-size: 15px;
+      color: var(--cream);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .faq-search::placeholder { color: var(--seafoam); opacity: 0.4; }
+    .faq-search:focus {
+      outline: none;
+      border-color: var(--teal);
+      background: rgba(45, 139, 139, 0.06);
+    }
+    .faq-search-icon {
+      position: absolute;
+      left: 16px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+    .faq-no-results {
+      display: none;
+      padding: 28px 0;
+      color: var(--seafoam);
+      opacity: 0.5;
+      font-size: 15px;
+      text-align: left;
+    }
+
+    /* ── FEATURE 9: Hero next-slot badge ── */
+    .hero-badge-slot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(45, 139, 139, 0.35);
+      background: rgba(45, 139, 139, 0.08);
+      padding: 6px 14px;
+      border-radius: 100px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 32px;
+      margin-left: 10px;
+      transition: all 0.3s;
+    }
+    .hero-badge-slot span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    @media (max-width: 899px) {
+      .hero-badge-slot { margin-left: 0; display: block; text-align: center; }
+    }
+
+
   /* ── MOBILE FIXES: must live after desktop styles to win the cascade ── */
   @media (max-width: 899px) {
 
@@ -1261,6 +1499,10 @@
               <span>Service d'Excellence Suisse</span>
               <svg width="14" height="14" fill="#C5A059" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             </div>
+            <div class="hero-badge-slot">
+              <span>📅</span>
+              <span id="nextSlotText">Prochain créneau: …</span>
+            </div>
           </div>
 
           <h1 class="hero-title animate-fade-in reveal-delay-2">
@@ -1297,7 +1539,7 @@
                 <strong>98%</strong>
               </div>
               <div class="progress-bar-bg">
-                <div class="progress-bar-fill" style="width: 98%"></div>
+                <div class="progress-bar-fill" id="heroProgressBar" style="width: 0%"></div>
               </div>
             </div>
 
@@ -1352,75 +1594,217 @@
     <div class="container">
       <div class="services-header" data-reveal>
         <div class="label centered">Nos soins</div>
-        <h2>Une prise en charge globale<br /><em>de votre santé bucco-dentaire</em></h2>
+        <h2>Soins dentaires<br /><em>complets &amp; personnalisés</em></h2>
         <p class="section-lead">Du contrôle préventif aux soins restaurateurs, chaque traitement est adapté à votre situation et réalisé avec les protocoles les plus actuels.</p>
       </div>
-      <div class="services-grid">
-        <div class="service-card" data-reveal data-reveal-delay="1">
-          <div class="service-card-img-wrap">
-            <img src="service_bilan.png" alt="Bilan & prévention" class="service-card-img" />
+      <div class="svc-showcase" data-reveal>
+
+        <!-- ── Left: numbered list ── -->
+        <div class="svc-list">
+
+          <div class="svc-row-wrap open">
+            <button class="svc-row active" data-svc="0">
+              <span class="svc-num">01</span>
+              <span class="svc-row-label">
+                <span class="svc-name">Bilan &amp; prévention</span>
+                <span class="svc-tag">Prévention</span>
+              </span>
+              <span class="svc-row-icon">🔍</span>
+              <span class="svc-arrow">→</span>
+            </button>
+            <div class="svc-inline-panel">
+              <div class="svc-inline-content">
+                <div class="svc-inline-img-wrap">
+                  <img src="service_bilan.png" alt="Bilan & prévention" class="svc-inline-img" />
+                </div>
+                <div class="svc-inline-text">
+                  <p>Examen clinique complet, radiographies numériques et détartrage professionnel pour préserver votre santé à long terme.</p>
+                  <a href="#contact" class="svc-inline-cta">Prendre rendez-vous →</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="service-card-body">
-            <div class="service-icon-wrap">🔍</div>
-            <h3>Bilan & prévention</h3>
-            <p>Examen clinique complet, radiographies numériques et détartrage professionnel pour préserver votre santé à long terme.</p>
-            <a href="#contact" class="btn-text">En savoir plus →</a>
+
+          <div class="svc-row-wrap">
+            <button class="svc-row" data-svc="1">
+              <span class="svc-num">02</span>
+              <span class="svc-row-label">
+                <span class="svc-name">Soins conservateurs</span>
+                <span class="svc-tag">Restauration</span>
+              </span>
+              <span class="svc-row-icon">🦷</span>
+              <span class="svc-arrow">→</span>
+            </button>
+            <div class="svc-inline-panel">
+              <div class="svc-inline-content">
+                <div class="svc-inline-img-wrap">
+                  <img src="service_soins.png" alt="Soins conservateurs" class="svc-inline-img" />
+                </div>
+                <div class="svc-inline-text">
+                  <p>Traitement des caries, obturations composites esthétiques et reconstitutions coronaires réalisés avec soin et précision.</p>
+                  <a href="#contact" class="svc-inline-cta">Prendre rendez-vous →</a>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div class="svc-row-wrap">
+            <button class="svc-row" data-svc="2">
+              <span class="svc-num">03</span>
+              <span class="svc-row-label">
+                <span class="svc-name">Dentisterie esthétique</span>
+                <span class="svc-tag">Esthétique</span>
+              </span>
+              <span class="svc-row-icon">✨</span>
+              <span class="svc-arrow">→</span>
+            </button>
+            <div class="svc-inline-panel">
+              <div class="svc-inline-content">
+                <div class="svc-inline-img-wrap">
+                  <img src="service_esthetique.png" alt="Dentisterie esthétique" class="svc-inline-img" />
+                </div>
+                <div class="svc-inline-text">
+                  <p>Blanchiment professionnel, facettes et techniques de collage pour un sourire naturel et harmonieux.</p>
+                  <a href="#contact" class="svc-inline-cta">Prendre rendez-vous →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc-row-wrap">
+            <button class="svc-row" data-svc="3">
+              <span class="svc-num">04</span>
+              <span class="svc-row-label">
+                <span class="svc-name">Prothèses dentaires</span>
+                <span class="svc-tag">Prothétique</span>
+              </span>
+              <span class="svc-row-icon">🔧</span>
+              <span class="svc-arrow">→</span>
+            </button>
+            <div class="svc-inline-panel">
+              <div class="svc-inline-content">
+                <div class="svc-inline-img-wrap">
+                  <img src="service_protheses.png" alt="Prothèses dentaires" class="svc-inline-img" />
+                </div>
+                <div class="svc-inline-text">
+                  <p>Couronnes, bridges et prothèses amovibles sur mesure, conçus pour allier confort fonctionnel et esthétique.</p>
+                  <a href="#contact" class="svc-inline-cta">Prendre rendez-vous →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc-row-wrap">
+            <button class="svc-row" data-svc="4">
+              <span class="svc-num">05</span>
+              <span class="svc-row-label">
+                <span class="svc-name">Endodontie</span>
+                <span class="svc-tag">Traitement de canal</span>
+              </span>
+              <span class="svc-row-icon">🩺</span>
+              <span class="svc-arrow">→</span>
+            </button>
+            <div class="svc-inline-panel">
+              <div class="svc-inline-content">
+                <div class="svc-inline-img-wrap">
+                  <img src="service_endodontie.png" alt="Endodontie" class="svc-inline-img" />
+                </div>
+                <div class="svc-inline-text">
+                  <p>Traitement des canaux radiculaires pour préserver vos dents naturelles dans les situations les plus complexes.</p>
+                  <a href="#contact" class="svc-inline-cta">Prendre rendez-vous →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc-row-wrap">
+            <button class="svc-row" data-svc="5">
+              <span class="svc-num">06</span>
+              <span class="svc-row-label">
+                <span class="svc-name">Urgences dentaires</span>
+                <span class="svc-tag">Urgences</span>
+              </span>
+              <span class="svc-row-icon">🏥</span>
+              <span class="svc-arrow">→</span>
+            </button>
+            <div class="svc-inline-panel">
+              <div class="svc-inline-content">
+                <div class="svc-inline-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80" alt="Urgences dentaires" class="svc-inline-img" />
+                </div>
+                <div class="svc-inline-text">
+                  <p>Prise en charge rapide des douleurs, traumatismes et situations nécessitant une attention immédiate.</p>
+                  <a href="#contact" class="svc-inline-cta">Prendre rendez-vous →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="service-card" data-reveal data-reveal-delay="2">
-          <div class="service-card-img-wrap">
-            <img src="service_soins.png" alt="Soins conservateurs" class="service-card-img" />
+
+        <!-- ── Right: featured panel (desktop only) ── -->
+        <div class="svc-panel-wrap">
+
+          <div class="svc-panel active" data-svc="0">
+            <img src="service_bilan.png" alt="" class="svc-panel-img" />
+            <div class="svc-panel-overlay">
+              <span class="svc-panel-icon">🔍</span>
+              <h3 class="svc-panel-title">Bilan &amp; prévention</h3>
+              <p class="svc-panel-desc">Examen clinique complet, radiographies numériques et détartrage professionnel pour préserver votre santé à long terme.</p>
+              <a href="#contact" class="svc-panel-cta">Prendre rendez-vous</a>
+            </div>
           </div>
-          <div class="service-card-body">
-            <div class="service-icon-wrap">🦷</div>
-            <h3>Soins conservateurs</h3>
-            <p>Traitement des caries, obturations composites esthétiques et reconstitutions coronaires réalisés avec soin et précision.</p>
-            <a href="#contact" class="btn-text">En savoir plus →</a>
+
+          <div class="svc-panel" data-svc="1">
+            <img src="service_soins.png" alt="" class="svc-panel-img" />
+            <div class="svc-panel-overlay">
+              <span class="svc-panel-icon">🦷</span>
+              <h3 class="svc-panel-title">Soins conservateurs</h3>
+              <p class="svc-panel-desc">Traitement des caries, obturations composites esthétiques et reconstitutions coronaires réalisés avec soin et précision.</p>
+              <a href="#contact" class="svc-panel-cta">Prendre rendez-vous</a>
+            </div>
           </div>
-        </div>
-        <div class="service-card" data-reveal data-reveal-delay="3">
-          <div class="service-card-img-wrap">
-            <img src="service_esthetique.png" alt="Dentisterie esthétique" class="service-card-img" />
+
+          <div class="svc-panel" data-svc="2">
+            <img src="service_esthetique.png" alt="" class="svc-panel-img" />
+            <div class="svc-panel-overlay">
+              <span class="svc-panel-icon">✨</span>
+              <h3 class="svc-panel-title">Dentisterie esthétique</h3>
+              <p class="svc-panel-desc">Blanchiment professionnel, facettes et techniques de collage pour un sourire naturel et harmonieux.</p>
+              <a href="#contact" class="svc-panel-cta">Prendre rendez-vous</a>
+            </div>
           </div>
-          <div class="service-card-body">
-            <div class="service-icon-wrap">✨</div>
-            <h3>Dentisterie esthétique</h3>
-            <p>Blanchiment professionnel, facettes et techniques de collage pour un sourire naturel et harmonieux.</p>
-            <a href="#contact" class="btn-text">En savoir plus →</a>
+
+          <div class="svc-panel" data-svc="3">
+            <img src="service_protheses.png" alt="" class="svc-panel-img" />
+            <div class="svc-panel-overlay">
+              <span class="svc-panel-icon">🔧</span>
+              <h3 class="svc-panel-title">Prothèses dentaires</h3>
+              <p class="svc-panel-desc">Couronnes, bridges et prothèses amovibles sur mesure, conçus pour allier confort fonctionnel et esthétique.</p>
+              <a href="#contact" class="svc-panel-cta">Prendre rendez-vous</a>
+            </div>
           </div>
-        </div>
-        <div class="service-card" data-reveal data-reveal-delay="1">
-          <div class="service-card-img-wrap">
-            <img src="service_protheses.png" alt="Prothèses dentaires" class="service-card-img" />
+
+          <div class="svc-panel" data-svc="4">
+            <img src="service_endodontie.png" alt="" class="svc-panel-img" />
+            <div class="svc-panel-overlay">
+              <span class="svc-panel-icon">🩺</span>
+              <h3 class="svc-panel-title">Endodontie</h3>
+              <p class="svc-panel-desc">Traitement des canaux radiculaires pour préserver vos dents naturelles dans les situations les plus complexes.</p>
+              <a href="#contact" class="svc-panel-cta">Prendre rendez-vous</a>
+            </div>
           </div>
-          <div class="service-card-body">
-            <div class="service-icon-wrap">🔧</div>
-            <h3>Prothèses dentaires</h3>
-            <p>Couronnes, bridges et prothèses amovibles sur mesure, conçus pour allier confort fonctionnel et esthétique.</p>
-            <a href="#contact" class="btn-text">En savoir plus →</a>
+
+          <div class="svc-panel" data-svc="5">
+            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80" alt="" class="svc-panel-img" />
+            <div class="svc-panel-overlay">
+              <span class="svc-panel-icon">🏥</span>
+              <h3 class="svc-panel-title">Urgences dentaires</h3>
+              <p class="svc-panel-desc">Prise en charge rapide des douleurs, traumatismes et situations nécessitant une attention immédiate.</p>
+              <a href="#contact" class="svc-panel-cta">Prendre rendez-vous</a>
+            </div>
           </div>
-        </div>
-        <div class="service-card" data-reveal data-reveal-delay="2">
-          <div class="service-card-img-wrap">
-            <img src="service_endodontie.png" alt="Endodontie" class="service-card-img" />
-          </div>
-          <div class="service-card-body">
-            <div class="service-icon-wrap">🩺</div>
-            <h3>Endodontie</h3>
-            <p>Traitement des canaux radiculaires pour préserver vos dents naturelles dans les situations les plus complexes.</p>
-            <a href="#contact" class="btn-text">En savoir plus →</a>
-          </div>
-        </div>
-        <div class="service-card" data-reveal data-reveal-delay="3">
-          <div class="service-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80" alt="Urgences dentaires" class="service-card-img" />
-          </div>
-          <div class="service-card-body">
-            <div class="service-icon-wrap">🏥</div>
-            <h3>Urgences dentaires</h3>
-            <p>Prise en charge rapide des douleurs, traumatismes et situations nécessitant une attention immédiate.</p>
-            <a href="#contact" class="btn-text">En savoir plus →</a>
-          </div>
+
         </div>
       </div>
     </div>
@@ -1597,7 +1981,13 @@
           </div>
           <p class="section-lead">Nous avons rassemblé les réponses aux interrogations les plus courantes de nos patients.</p>
         </div>
-        <div class="faq-list">
+        <div>
+          <div class="faq-search-wrap">
+            <span class="faq-search-icon">🔍</span>
+            <input type="text" class="faq-search" id="faqSearch" placeholder="Rechercher une question…" autocomplete="off" />
+          </div>
+          <p class="faq-no-results" id="faqNoResults">Aucun résultat pour cette recherche.</p>
+          <div class="faq-list">
           <details class="faq-item" data-reveal>
             <summary class="faq-question">Comment prendre rendez-vous ?<span class="faq-icon">+</span></summary>
             <p class="faq-answer">Vous pouvez nous contacter directement par téléphone au <a href="tel:0216163525">021 616 35 25</a>, du lundi au vendredi de 08h00 à 18h00. Vous pouvez également utiliser le formulaire de contact en bas de cette page et nous vous rappellerons dans les plus brefs délais.</p>
@@ -1626,6 +2016,7 @@
             <summary class="faq-question">Proposez-vous des soins d'urgence ?<span class="faq-icon">+</span></summary>
             <p class="faq-answer">Oui. Nous essayons dans la mesure du possible de réserver des créneaux pour les urgences dentaires. Appelez-nous directement au <a href="tel:0216163525">021 616 35 25</a> et expliquez votre situation pour une prise en charge prioritaire.</p>
           </details>
+          </div>
         </div>
       </div>
     </div>
@@ -1646,36 +2037,90 @@
           <small>5 / 5 sur local.ch</small>
         </div>
       </div>
-      <div class="reviews-grid">
-        <div class="review-card" data-reveal data-reveal-delay="1">
-          <div class="review-header">
-            <div class="review-avatar">M</div>
-            <div class="review-author">
-              <strong>Marc T.</strong><small>Patient fidèle</small>
+      <div class="reviews-carousel-outer" data-reveal>
+        <div class="reviews-carousel-track">
+          <!-- Set 1 -->
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">M</div>
+              <div class="review-author">
+                <strong>Marc T.</strong><small>Patient fidèle</small>
+              </div>
             </div>
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">« Le Dr. Gkrizioti est une professionnelle remarquable — précise, attentive et toujours à l'écoute. Je n'ai plus aucune appréhension à l'idée d'aller chez le dentiste. »</p>
           </div>
-          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <p class="review-text">« Le Dr. Gkrizioti est une professionnelle remarquable — précise, attentive et toujours à l'écoute. Je n'ai plus aucune appréhension à l'idée d'aller chez le dentiste. »</p>
-        </div>
-        <div class="review-card" data-reveal data-reveal-delay="2">
-          <div class="review-header">
-            <div class="review-avatar">S</div>
-            <div class="review-author">
-              <strong>Sophie R.</strong><small>Nouveau patient</small>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">S</div>
+              <div class="review-author">
+                <strong>Sophie R.</strong><small>Nouveau patient</small>
+              </div>
             </div>
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">« Accueil chaleureux, cabinet impeccable et soins de qualité. Le Dr. Gkrizioti prend le temps d'expliquer chaque geste — on se sent vraiment en confiance. »</p>
           </div>
-          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <p class="review-text">« Accueil chaleureux, cabinet impeccable et soins de qualité. Le Dr. Gkrizioti prend le temps d'expliquer chaque geste — on se sent vraiment en confiance. »</p>
-        </div>
-        <div class="review-card" data-reveal data-reveal-delay="3">
-          <div class="review-header">
-            <div class="review-avatar">J</div>
-            <div class="review-author">
-              <strong>Julien F.</strong><small>Patient</small>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">J</div>
+              <div class="review-author">
+                <strong>Julien F.</strong><small>Patient</small>
+              </div>
             </div>
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">« Excellente prise en charge lors d'une urgence. Compétente, rassurante et disponible. Je recommande ce cabinet à tous mes proches sans hésitation. »</p>
           </div>
-          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <p class="review-text">« Excellente prise en charge lors d'une urgence. Compétente, rassurante et disponible. Je recommande ce cabinet à tous mes proches sans hésitation. »</p>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">C</div>
+              <div class="review-author">
+                <strong>Claire M.</strong><small>Patient</small>
+              </div>
+            </div>
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">« Une dentiste à l'écoute et aux petits soins. Le cabinet est moderne et l'ambiance très sereine. Un grand merci pour votre bienveillance. »</p>
+          </div>
+          <!-- Set 2 (duplicate for seamless loop) -->
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">M</div>
+              <div class="review-author">
+                <strong>Marc T.</strong><small>Patient fidèle</small>
+              </div>
+            </div>
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">« Le Dr. Gkrizioti est une professionnelle remarquable — précise, attentive et toujours à l'écoute. Je n'ai plus aucune appréhension à l'idée d'aller chez le dentiste. »</p>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">S</div>
+              <div class="review-author">
+                <strong>Sophie R.</strong><small>Nouveau patient</small>
+              </div>
+            </div>
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">« Accueil chaleureux, cabinet impeccable et soins de qualité. Le Dr. Gkrizioti prend le temps d'expliquer chaque geste — on se sent vraiment en confiance. »</p>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">J</div>
+              <div class="review-author">
+                <strong>Julien F.</strong><small>Patient</small>
+              </div>
+            </div>
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">« Excellente prise en charge lors d'une urgence. Compétente, rassurante et disponible. Je recommande ce cabinet à tous mes proches sans hésitation. »</p>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">C</div>
+              <div class="review-author">
+                <strong>Claire M.</strong><small>Patient</small>
+              </div>
+            </div>
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">« Une dentiste à l'écoute et aux petits soins. Le cabinet est moderne et l'ambiance très sereine. Un grand merci pour votre bienveillance. »</p>
+          </div>
         </div>
       </div>
       <div class="google-badge" data-reveal data-reveal-delay="2">
@@ -1717,6 +2162,12 @@
               </div>
             </div>
           </div>
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=6.622%2C46.510%2C6.632%2C46.516&amp;layer=mapnik&amp;marker=46.513%2C6.627"
+            style="width:100%;height:220px;border-radius:14px;border:1px solid rgba(168,218,220,0.12);margin-top:24px;display:block;filter:hue-rotate(160deg) saturate(0.6) brightness(0.7);"
+            loading="lazy"
+            title="Localisation Cabinet Dentaire Dr. Gkrizioti"
+          ></iframe>
         </div>
 
         <div data-reveal data-reveal-delay="2">
@@ -1819,6 +2270,24 @@
   </footer>
 
   <script>
+    // ── Services showcase
+    (function() {
+      const rows     = document.querySelectorAll('.svc-row');
+      const panels   = document.querySelectorAll('.svc-panel');
+      const rowWraps = document.querySelectorAll('.svc-row-wrap');
+
+      rows.forEach((row, i) => {
+        row.addEventListener('click', () => {
+          rows.forEach(r => r.classList.remove('active'));
+          panels.forEach(p => p.classList.remove('active'));
+          rowWraps.forEach(w => w.classList.remove('open'));
+          row.classList.add('active');
+          if (panels[i]) panels[i].classList.add('active');
+          rowWraps[i].classList.add('open');
+        });
+      });
+    })();
+
     // ── Mobile Menu Toggle
     function toggleMenu() {
       const menu = document.getElementById('mobile-menu');
@@ -1919,6 +2388,121 @@
         if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
       });
     });
+
+    // ── FEATURE 1: Animated counting stats
+    (function() {
+      function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+      function animateCount(el, target, suffix, duration) {
+        const start = performance.now();
+        function tick(now) {
+          const p = Math.min((now - start) / duration, 1);
+          el.textContent = Math.round(easeOutQuart(p) * target) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+      let statsAnimated = false;
+      const statsObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting && !statsAnimated) {
+            statsAnimated = true;
+            const statVal = document.querySelector('.card-stat-val');
+            if (statVal) animateCount(statVal, 150, '+', 1500);
+            document.querySelectorAll('.mini-stat-val').forEach(el => {
+              const t = el.textContent.trim();
+              if (t === '15+') animateCount(el, 15, '+', 1500);
+              else if (t === '100%') animateCount(el, 100, '%', 1500);
+            });
+            const bar = document.getElementById('heroProgressBar');
+            if (bar) requestAnimationFrame(() => { bar.style.width = '98%'; });
+          }
+        });
+      }, { threshold: 0.3 });
+      const gc = document.querySelector('.glass-card');
+      if (gc) statsObs.observe(gc);
+    })();
+
+
+    // ── FEATURE 5: Auto-advancing stepper
+    (function() {
+      let autoTimer = null;
+      let lastManual = 0;
+      const INTERVAL = 3500;
+      const RESUME   = 8000;
+
+      function startAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => {
+          if (Date.now() - lastManual < RESUME) return;
+          const next = (currentStep + 1) % TOTAL_STEPS;
+          document.getElementById('stepNext').disabled = false;
+          goToStep(next);
+        }, INTERVAL);
+      }
+      function stopAuto() { clearInterval(autoTimer); }
+
+      document.querySelectorAll('.stepper-chip').forEach(c => {
+        c.addEventListener('click', () => { lastManual = Date.now(); });
+      });
+      ['stepPrev','stepNext'].forEach(id => {
+        const b = document.getElementById(id);
+        if (b) b.addEventListener('click', () => { lastManual = Date.now(); });
+      });
+
+      const stepperObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) startAuto(); else stopAuto(); });
+      }, { threshold: 0.3 });
+      const whySec = document.getElementById('why');
+      if (whySec) stepperObs.observe(whySec);
+    })();
+
+    // ── FEATURE 8: FAQ live search
+    (function() {
+      const input     = document.getElementById('faqSearch');
+      const noResults = document.getElementById('faqNoResults');
+      if (!input) return;
+      input.addEventListener('input', () => {
+        const q = input.value.toLowerCase().trim();
+        const items = document.querySelectorAll('.faq-item');
+        let count = 0;
+        items.forEach(item => {
+          const match = !q || item.textContent.toLowerCase().includes(q);
+          item.style.display = match ? '' : 'none';
+          if (match) count++;
+        });
+        noResults.style.display = count === 0 ? 'block' : 'none';
+      });
+    })();
+
+    // ── FEATURE 9: Next available slot badge
+    (function() {
+      const el = document.getElementById('nextSlotText');
+      if (!el) return;
+      const now = new Date();
+      const zurich = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Zurich',
+        weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false
+      }).formatToParts(now);
+      const p = {};
+      zurich.forEach(x => { p[x.type] = x.value; });
+      const day  = p.weekday;
+      const mins = parseInt(p.hour, 10) * 60 + parseInt(p.minute, 10);
+      const wdays = ['Mon','Tue','Wed','Thu','Fri'];
+      const isWday = wdays.includes(day);
+      const isOpen = isWday && mins >= 480 && mins < 1080;
+      let text;
+      if (isOpen) {
+        text = "Aujourd\u2019hui \u00B7 disponible";
+      } else if (isWday && mins < 480) {
+        text = "Aujourd\u2019hui \u00B7 09:00";
+      } else if ((isWday && day !== 'Fri') ) {
+        text = "Demain \u00B7 09:00";
+      } else {
+        text = "Lundi \u00B7 09:00";
+      }
+      el.textContent = 'Prochain cr\u00E9neau\u00A0: ' + text;
+    })();
+
 
     // ── Contact form
     document.getElementById('contactForm').addEventListener('submit', function(e) {
