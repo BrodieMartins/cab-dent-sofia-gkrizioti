@@ -774,39 +774,47 @@
     .svc-inline-content {
       display: flex;
       gap: 16px;
-      align-items: flex-start;
-      padding: 4px 24px 24px;
+      align-items: center; /* Vertical centering */
+      padding: 12px 20px 24px;
+      text-align: left;
+      flex-direction: row; /* Horizontal layout as requested */
     }
     .svc-inline-img-wrap {
-      width: 88px; height: 88px;
-      border-radius: 10px;
+      width: 100px; height: 100px; /* Smaller for side-by-side */
+      border-radius: 12px;
       overflow: hidden;
       flex-shrink: 0;
     }
     .svc-inline-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .svc-inline-text { flex: 1; min-width: 0; }
     .svc-inline-text p {
       font-size: 13px;
       color: var(--seafoam);
-      opacity: 0.75;
-      line-height: 1.7;
-      margin-bottom: 12px;
+      opacity: 0.8;
+      line-height: 1.6;
+      margin: 0;
     }
     .svc-inline-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(45,139,139,0.1);
-      border: 1px solid rgba(45,139,139,0.3);
-      color: var(--teal);
-      padding: 7px 16px;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background 0.25s;
-      letter-spacing: 0.05em;
+      display: none !important;
     }
-    .svc-inline-cta:hover { background: rgba(45,139,139,0.2); }
+
+    .svc-mobile-footer-cta-wrap {
+      display: none;
+      margin-top: 48px; /* Gap from the dark box */
+      justify-content: center;
+      position: relative;
+      z-index: 100;
+    }
+    @media (max-width: 899px) { 
+      #services { padding-bottom: 48px !important; } /* Replaces the section 96px with 48px */
+      .svc-mobile-footer-cta-wrap { display: flex !important; } 
+    }
+    .svc-mobile-footer-cta {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 0 16px;
+    }
 
     .btn-text {
       font-size: 12px;
@@ -1251,7 +1259,7 @@
     .progress-bar-fill { transition: width 1.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
 
-    /* ── FEATURE 6: Reviews auto-carousel ── */
+    /* ── FEATURE 6: Reviews Carousel ── */
     .reviews-carousel-outer {
       width: 100%;
       overflow: hidden;
@@ -1265,10 +1273,19 @@
       animation: reviewsMarquee 44s linear infinite;
     }
     .reviews-carousel-outer:hover .reviews-carousel-track { animation-play-state: paused; }
+
+    @media (max-width: 899px) {
+      .reviews-carousel-outer { overflow-x: auto; mask-image: none; -webkit-mask-image: none; }
+      .reviews-carousel-track { animation: none !important; width: auto; padding: 20px; gap: 16px; }
+      .review-card { width: 85vw !important; }
+      .reviews-carousel-outer::-webkit-scrollbar { display: none; }
+    }
+
     .reviews-carousel-track .review-card {
       width: 360px;
       flex-shrink: 0;
       transform: none;
+      transition: all 0.4s;
     }
     .reviews-carousel-track .review-card:hover { transform: translateY(-6px); }
     @keyframes reviewsMarquee {
@@ -1276,44 +1293,31 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* ── FEATURE 8: FAQ search ── */
-    .faq-search-wrap {
-      position: relative;
-      margin-bottom: 20px;
+    /* ── FEATURE 8: FAQ Improvements ── */
+    .faq-item {
+      border-bottom: 1px solid var(--glass-border);
+      overflow: hidden;
     }
-    .faq-search {
-      width: 100%;
-      padding: 13px 20px 13px 44px;
-      border-radius: 8px;
-      border: 1px solid var(--glass-border);
-      background: rgba(26, 35, 50, 0.45);
-      font-size: 15px;
-      color: var(--cream);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      transition: border-color 0.3s, background 0.3s;
+    .faq-question {
+      padding: 24px 0; font-weight: 600; font-size: 16px; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--cream); transition: color 0.3s; gap: 14px;
+      list-style: none;
     }
-    .faq-search::placeholder { color: var(--seafoam); opacity: 0.4; }
-    .faq-search:focus {
-      outline: none;
-      border-color: var(--teal);
-      background: rgba(45, 139, 139, 0.06);
+    .faq-question::-webkit-details-marker { display: none; }
+    .faq-answer-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s ease-out;
     }
-    .faq-search-icon {
-      position: absolute;
-      left: 16px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 16px;
-      pointer-events: none;
-      opacity: 0.45;
+    .faq-item.active .faq-answer-wrapper {
+      grid-template-rows: 1fr;
     }
-    .faq-no-results {
-      display: none;
-      padding: 28px 0;
-      color: var(--seafoam);
-      opacity: 0.5;
-      font-size: 15px;
-      text-align: left;
+    .faq-answer-content {
+      min-height: 0;
+      overflow: hidden;
     }
+    .faq-answer { padding-bottom: 24px; color: var(--seafoam); opacity: 0.8; font-size: 15px; line-height: 1.8; }
 
     /* ── FEATURE 9: Hero next-slot badge ── */
     .hero-badge-slot {
@@ -1794,6 +1798,13 @@
           </div>
 
         </div>
+
+        <div class="svc-mobile-footer-cta-wrap">
+          <div class="svc-mobile-footer-cta">
+            <a href="#contact" class="btn-primary" style="width: 100%; max-width: 320px; justify-content: center;">Prendre rendez-vous</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1971,40 +1982,62 @@
           <p class="section-lead">Nous avons rassemblé les réponses aux interrogations les plus courantes de nos patients.</p>
         </div>
         <div>
-          <div class="faq-search-wrap">
-            <span class="faq-search-icon">🔍</span>
-            <input type="text" class="faq-search" id="faqSearch" placeholder="Rechercher une question…" autocomplete="off" />
+          <div class="faq-item" data-reveal>
+            <div class="faq-question">Comment prendre rendez-vous ?<span class="faq-icon">+</span></div>
+            <div class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                <p class="faq-answer">Vous pouvez nous contacter directement par téléphone au <a href="tel:0216163525">021 616 35 25</a>, du lundi au vendredi de 08h00 à 18h00. Vous pouvez également utiliser le formulaire de contact en bas de cette page et nous vous rappellerons dans les plus brefs délais.</p>
+              </div>
+            </div>
           </div>
-          <p class="faq-no-results" id="faqNoResults">Aucun résultat pour cette recherche.</p>
-          <div class="faq-list">
-          <details class="faq-item" data-reveal>
-            <summary class="faq-question">Comment prendre rendez-vous ?<span class="faq-icon">+</span></summary>
-            <p class="faq-answer">Vous pouvez nous contacter directement par téléphone au <a href="tel:0216163525">021 616 35 25</a>, du lundi au vendredi de 08h00 à 18h00. Vous pouvez également utiliser le formulaire de contact en bas de cette page et nous vous rappellerons dans les plus brefs délais.</p>
-          </details>
-          <details class="faq-item" data-reveal data-reveal-delay="1">
-            <summary class="faq-question">Acceptez-vous les nouveaux patients ?<span class="faq-icon">+</span></summary>
-            <p class="faq-answer">Oui, notre cabinet accueille régulièrement de nouveaux patients. Nous vous invitons à nous contacter pour convenir d'un premier rendez-vous. Merci de nous informer si vous avez des antécédents médicaux particuliers ou si vous prenez des médicaments.</p>
-          </details>
-          <details class="faq-item" data-reveal data-reveal-delay="1">
-            <summary class="faq-question">Quelles assurances acceptez-vous ?<span class="faq-icon">+</span></summary>
-            <p class="faq-answer">Nous acceptons les remboursements de la plupart des caisses maladie suisses via l'assurance complémentaire dentaire (LCA). Les soins de base couverts par la LAMal sont également pris en charge.</p>
-          </details>
-          <details class="faq-item" data-reveal data-reveal-delay="1">
-            <summary class="faq-question">Combien de temps dure la première consultation ?<span class="faq-icon">+</span></summary>
-            <p class="faq-answer">La première consultation dure généralement entre 45 et 60 minutes. Elle comprend un bilan bucco-dentaire complet, des radiographies si nécessaires, et un temps d'échange pour établir un plan de soins adapté à vos besoins.</p>
-          </details>
-          <details class="faq-item" data-reveal data-reveal-delay="1">
-            <summary class="faq-question">Prenez-vous en charge les patients anxieux ?<span class="faq-icon">+</span></summary>
-            <p class="faq-answer">Absolument. Notre approche est douce, progressive et bienveillante. N'hésitez pas à nous en parler lors de la prise de rendez-vous, afin que nous puissions adapter notre accueil à vos besoins.</p>
-          </details>
-          <details class="faq-item" data-reveal data-reveal-delay="1">
-            <summary class="faq-question">Comment me préparer pour mon premier rendez-vous ?<span class="faq-icon">+</span></summary>
-            <p class="faq-answer">Merci de prévoir votre carte d'assurance maladie, la liste de vos médicaments actuels et, si possible, vos anciens bilans ou radios dentaires. Arrivez quelques minutes à l'avance pour remplir une fiche patient.</p>
-          </details>
-          <details class="faq-item" data-reveal data-reveal-delay="1">
-            <summary class="faq-question">Proposez-vous des soins d'urgence ?<span class="faq-icon">+</span></summary>
-            <p class="faq-answer">Oui. Nous essayons dans la mesure du possible de réserver des créneaux pour les urgences dentaires. Appelez-nous directement au <a href="tel:0216163525">021 616 35 25</a> et expliquez votre situation pour une prise en charge prioritaire.</p>
-          </details>
+          <div class="faq-item" data-reveal data-reveal-delay="1">
+            <div class="faq-question">Acceptez-vous les nouveaux patients ?<span class="faq-icon">+</span></div>
+            <div class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                <p class="faq-answer">Oui, notre cabinet accueille régulièrement de nouveaux patients. Nous vous invitons à nous contacter pour convenir d'un premier rendez-vous. Merci de nous informer si vous avez des antécédents médicaux particuliers ou si vous prenez des médicaments.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item" data-reveal data-reveal-delay="1">
+            <div class="faq-question">Quelles assurances acceptez-vous ?<span class="faq-icon">+</span></div>
+            <div class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                <p class="faq-answer">Nous acceptons les remboursements de la plupart des caisses maladie suisses via l'assurance complémentaire dentaire (LCA). Les soins de base couverts par la LAMal sont également pris en charge.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item" data-reveal data-reveal-delay="1">
+            <div class="faq-question">Combien de temps dure la première consultation ?<span class="faq-icon">+</span></div>
+            <div class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                <p class="faq-answer">La première consultation dure généralement entre 45 et 60 minutes. Elle comprend un bilan bucco-dentaire complet, des radiographies si nécessaires, et un temps d'échange pour établir un plan de soins adapté à vos besoins.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item" data-reveal data-reveal-delay="1">
+            <div class="faq-question">Prenez-vous en charge les patients anxieux ?<span class="faq-icon">+</span></div>
+            <div class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                <p class="faq-answer">Absolument. Notre approche est douce, progressive et bienveillante. N'hésitez pas à nous en parler lors de la prise de rendez-vous, afin que nous puissions adapter notre accueil à vos besoins.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item" data-reveal data-reveal-delay="1">
+            <div class="faq-question">Comment me préparer pour mon premier rendez-vous ?<span class="faq-icon">+</span></div>
+            <div class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                <p class="faq-answer">Merci de prévoir votre carte d'assurance maladie, la liste de vos médicaments actuels et, si possible, vos anciens bilans ou radios dentaires. Arrivez quelques minutes à l'avance pour remplir une fiche patient.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item" data-reveal data-reveal-delay="1">
+            <div class="faq-question">Proposez-vous des soins d'urgence ?<span class="faq-icon">+</span></div>
+            <div class="faq-answer-wrapper">
+              <div class="faq-answer-content">
+                <p class="faq-answer">Oui. Nous essayons dans la mesure du possible de réserver des créneaux pour les urgences dentaires. Appelez-nous directement au <a href="tel:0216163525">021 616 35 25</a> et expliquez votre situation pour une prise en charge prioritaire.</p>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>
@@ -2267,12 +2300,19 @@
 
       rows.forEach((row, i) => {
         row.addEventListener('click', () => {
+          const isActive = row.classList.contains('active');
+          
+          // Clear all
           rows.forEach(r => r.classList.remove('active'));
           panels.forEach(p => p.classList.remove('active'));
           rowWraps.forEach(w => w.classList.remove('open'));
-          row.classList.add('active');
-          if (panels[i]) panels[i].classList.add('active');
-          rowWraps[i].classList.add('open');
+          
+          // Toggle if it wasn't already active (or always open first one if you prefer, but here we allow toggle off)
+          if (!isActive) {
+            row.classList.add('active');
+            if (panels[i]) panels[i].classList.add('active');
+            rowWraps[i].classList.add('open');
+          }
         });
       });
     })();
@@ -2416,8 +2456,8 @@
     (function() {
       let autoTimer = null;
       let lastManual = 0;
-      const INTERVAL = 3500;
-      const RESUME   = 8000;
+      const INTERVAL = 8000;
+      const RESUME   = 15000;
 
       function startAuto() {
         clearInterval(autoTimer);
@@ -2445,22 +2485,71 @@
       if (whySec) stepperObs.observe(whySec);
     })();
 
-    // ── FEATURE 8: FAQ live search
+    // ── FEATURE 8: FAQ smooth expansion
     (function() {
-      const input     = document.getElementById('faqSearch');
-      const noResults = document.getElementById('faqNoResults');
-      if (!input) return;
-      input.addEventListener('input', () => {
-        const q = input.value.toLowerCase().trim();
-        const items = document.querySelectorAll('.faq-item');
-        let count = 0;
-        items.forEach(item => {
-          const match = !q || item.textContent.toLowerCase().includes(q);
-          item.style.display = match ? '' : 'none';
-          if (match) count++;
+      document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+          const item = q.parentElement;
+          const isActive = item.classList.contains('active');
+          // Close others
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+          // Toggle current
+          if (!isActive) item.classList.add('active');
         });
-        noResults.style.display = count === 0 ? 'block' : 'none';
       });
+    })();
+
+    // ── FEATURE 6: Reviews Mobile Pause/Snap
+    (function() {
+      const carousel = document.querySelector('.reviews-carousel-outer');
+      if (!carousel || window.innerWidth > 899) return;
+
+      let isPaused = false;
+      let pauseTimeout = null;
+      let scrollSpeed = 0.4; // Pixels per frame for smooth movement
+      let rafId = null;
+
+      function animate() {
+        if (!isPaused) {
+          carousel.scrollLeft += scrollSpeed;
+          if (carousel.scrollLeft >= (carousel.scrollWidth - carousel.offsetWidth)) {
+            carousel.scrollLeft = 0;
+          }
+          
+          // Check if any card is perfectly centered
+          const cards = carousel.querySelectorAll('.review-card');
+          const centerX = carousel.scrollLeft + (carousel.offsetWidth / 2);
+          
+          cards.forEach(card => {
+            const cardLeft = card.offsetLeft;
+            const cardCenter = cardLeft + (card.offsetWidth / 2);
+            if (Math.abs(centerX - cardCenter) < 2.5) {
+              // Centered! Pause for 5s
+              isPaused = true;
+              clearTimeout(pauseTimeout);
+              pauseTimeout = setTimeout(() => { isPaused = false; }, 5000);
+            }
+          });
+        }
+        rafId = requestAnimationFrame(animate);
+      }
+
+      // Manual control
+      carousel.addEventListener('touchstart', () => {
+        isPaused = true;
+        clearTimeout(pauseTimeout);
+        cancelAnimationFrame(rafId);
+      }, {passive: true});
+
+      carousel.addEventListener('touchend', () => {
+        // Resume after 8s of inactivity
+        pauseTimeout = setTimeout(() => { 
+          isPaused = false; 
+          animate();
+        }, 8000);
+      }, {passive: true});
+
+      animate();
     })();
 
     // ── FEATURE 9: Next available slot badge
