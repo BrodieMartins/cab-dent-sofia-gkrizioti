@@ -888,6 +888,32 @@
       border-color: var(--teal);
       color: #FFF;
     }
+    /* Mobile optimization for stepper chips */
+    @media (max-width: 640px) {
+      .stepper-chips {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 48px;
+        justify-items: stretch;
+      }
+      .stepper-chip {
+        padding: 12px 14px 12px 12px;
+        font-size: 12px;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+        min-height: 80px;
+        display: flex;
+      }
+      .chip-num {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+      }
+    }
     /* Progress bar under chips */
     .stepper-progress {
       width: 100%;
@@ -2285,7 +2311,7 @@
         </a>
         <div class="footer-copy">
           <p>Bd de Grancy 19, 1006 Lausanne &nbsp;·&nbsp; <a href="tel:0216163525">021 616 35 25</a></p>
-          <p>&copy; 2025 Cabinet Dentaire Dr. Gkrizioti Sofia. Tous droits réservés.</p>
+          <p>&copy; 2026 Cabinet Dentaire Dr. Gkrizioti Sofia. Tous droits réservés.</p>
         </div>
       </div>
     </div>
